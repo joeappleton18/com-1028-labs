@@ -1,6 +1,6 @@
 # Yet Another Todo List (YATL) - Part 1
 
-![Todo List](/assets/header.webp)
+![Todo List](assets/header.webp)
 
 This lab is part one of a two-part case-study. In this first lab, we will create an API for a to-do list in Java. We will use Javalin, a lightweight web framework and SQLite, a simple SQL database engine. We will structure the project using the Model View Controller (MVC) pattern. Furthermore, we will use the Data Access Object (DAO) pattern to interact with the database.
 
@@ -71,7 +71,7 @@ A list of todos is represented as an array of todo items:
 
 ### The Software Architecture
 
-![MVC](/assets/mvc.png)
+![MVC](assets/mvc.png)
 
 We will use the Model View Controller (MVC) pattern to structure our application. The MVC pattern is a way of separating concerns in an application. It is a way of organising the code so that it is easier to understand and maintain.
 
