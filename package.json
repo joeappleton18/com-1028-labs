@@ -1,0 +1,16 @@
+{
+  "name": "lab-5",
+  "version": "1.0.0",
+  "description": "A starter project for hosting VuePress sites on GitLab pages.",
+  "main": "index.js",
+  "author": "samdbeckham",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "vuepress dev docs",
+    "build": "vuepress build docs"
+  },
+  "dependencies": {
+    "vuepress": "^0.14.11"
+  }
+}
