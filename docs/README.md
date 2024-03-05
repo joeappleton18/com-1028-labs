@@ -1,6 +1,6 @@
 # Yet Another Todo List (YATL) - Part 1
 
-![Todo List](assets/header.webp)
+![Todo List](./assets/header.png)
 
 This lab is part one of a two-part case-study. In this first lab, we will create an API for a to-do list in Java. We will use Javalin, a lightweight web framework and SQLite, a simple SQL database engine. We will structure the project using the Model View Controller (MVC) pattern. Furthermore, we will use the Data Access Object (DAO) pattern to interact with the database.
 
@@ -71,7 +71,7 @@ A list of todos is represented as an array of todo items:
 
 ### The Software Architecture
 
-![MVC](assets/mvc.png)
+![MVC](./assets/mvc.png)
 
 We will use the Model View Controller (MVC) pattern to structure our application. The MVC pattern is a way of separating concerns in an application. It is a way of organising the code so that it is easier to understand and maintain.
 
@@ -96,14 +96,14 @@ The `Group Id` is a unique identifier for the project. It is usually the reverse
 
 6. You should now see a new project in the `Project Explorer` view. Right-click on the project and click `go into` to focus on the project (this is optional).
 
-![go into](assets/go-into.png)
+![go into](./assets/go-into.png)
 
 Currently, the project is empty. It's organised into the standard Maven project structure. We will add our main project code to the `src/main/java` directory. We will add our tests to the `src/test/java` directory. We will add our resources to the `src/main/resources` directory.
 For more information, check out the [Maven Standard Directory Layout](https://maven.apache.org/guides/introduction/introduction-to-the-standard-directory-layout.html) for more information.
 
 7. The first thing we need to do is ensure we are using Java 17. In your package explorer in the root of your project, you should see a file called `JRE System Library`. Right click on this and select `Properties`. In the `Execution Environment` section, select `JavaSE-17` and click `Apply and Close`.
 
-![Java 17](assets/set-jre.png)
+![Java 17](./assets/set-jre.png)
 
 ### 1.1 Add Javelin and SQLite dependencies
 
@@ -127,7 +127,7 @@ We now need to locate the dependencies for Javalin and SQLite. We can find these
 5. The top result should be `Javalin`. Click on it to view the details. The group id should be `io.javalin`. Recall this is often the reverse of the domain name. Visit the [Javalin website](https://javalin.io/) to confirm this is the case.
 6. Back on the search results, click on the latest version of Javalin 6.1.2 at the time of writing.
 
-![Javalin](assets/javalin.png)
+![Javalin](./assets/javalin.png)
 
 7. Repeat the process for SQLite. You should find the group id is `org.xerial` and the artifact id is `sqlite-jdbc`. The latest version at the time of writing is 3.45.1.0.
 
