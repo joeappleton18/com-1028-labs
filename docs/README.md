@@ -328,7 +328,7 @@ public String toString() {
 
 Currently, we are directly interacting with the database in the `main` method of the `Main` class; this is not ideal. We should separate the data access logic from the business logic. We will use the Data Access Object (DAO) pattern to achieve this.
 
-:::tip Concept
+::: tip Concept
 
 The data access object (DAO) is a design pattern that provides a way to separate the data access logic from the business logic. The DAO provides some specific data operations without exposing details of the database. In our case, the DAO will provide methods to interact with the `todos` table in the database.
 
