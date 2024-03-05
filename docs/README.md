@@ -80,6 +80,9 @@ We will use the Model View Controller (MVC) pattern to structure our application
 Let's create a blank Maven project. We will use Maven to manage our dependencies.
 
 1. Open Eclipse (There are two versions on the lab machines. Open the latest version, 2023 to 06)
+
+![](./assets/eclipse-2023-06.png)
+
 2. Launch your workspace
 3. Click on `File` -> `New` -> `Maven Project`
 4. Select `Create a simple project (skip archetype selection)` and click `Next`
@@ -104,6 +107,8 @@ For more information, check out the [Maven Standard Directory Layout](https://ma
 7. The first thing we need to do is ensure we are using Java 17. In your package explorer in the root of your project, you should see a file called `JRE System Library`. Right click on this and select `Properties`. In the `Execution Environment` section, select `JavaSE-17` and click `Apply and Close`.
 
 ![Java 17](./assets/set-jre.png)
+
+![Java 17](./assets/java-version.png)
 
 ### 1.1 Add Javelin and SQLite dependencies
 
