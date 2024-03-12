@@ -234,7 +234,7 @@ Above, we've used a Seeder to create a database and add some example data. Howev
 
 First, we will use the Singleton pattern to manage the database connection. The Singleton pattern ensures that a class has only one instance and provides a global access to that instance. This works well for us, as we only need one connection to the database. We will create a `Database` class to manage the database connection.
 
-![Singleton Pattern](assets/singleton.png)
+![Singleton Pattern](./assets/singleton.png)
 
 1. In the `com.yatl.util` package, create a new class called `Database`. Using the above class diagram as a guide create the `Database` class. You can also look at the code in the `Seeder` class to help you. Furthermore, you can use the hints below to help you.
 
