@@ -1,6 +1,8 @@
 module.exports = {
 	title: 'COM1028 LAB 5 and 6',
 	base: '/com-1028-labs/',
+	dest: 'docs',
+
 
 	themeConfig: {
 		search: false,

@@ -26,17 +26,21 @@ In this section, you will grab the starter code and install some dependencies to
    	git clone https://gitlab.surrey.ac.uk/com_1028_labs/lab-6.git
    ```
 
-The above command will clone the repository into a directory called `yatl`.
+The above command will clone the repository into a directory called `lab-6`.
 
-4. Import the project folder into your Eclipse Workspace: `File -> Open Projects from File System -> Directory -> yatl`
+4. Open Eclipse (There are two versions on the lab machines. Open the latest version, 2023 to 06)
 
-5. We need to ensure we are using Java 17. In your package explorer in the root of your project, you should see a file called `JRE System Library`. Right click on this and select `Properties`. In the `Execution Environment` section, select `JavaSE-17` and click `Apply and Close`.
+![](./assets/eclipse-2023-06.png)
+
+5. Import the project folder into your Eclipse Workspace: `File -> Open Projects from File System -> Directory`
+
+6. We need to ensure we are using Java 17, or higher. In your package explorer in the root of your project, you should see a file called `JRE System Library`. Right click on this and select `Properties`. In the `Execution Environment` section, select `JavaSE-17` and click `Apply and Close`.
 
 ![Java 17](./assets/set-jre.png)
 
 ![Java 17](./assets/java-version.png)
 
-6. At this stage, you should be able to run the project. Right click on src/main/java/com/yatl/Main.java and select `Run As -> Java Application`. In the console, you may see some warnings regarding a logger not being set up, ignore this
+6. At this stage, you should be able to run the project. Right click on `src/main/java/com/yatl/Main.java` and select `Run As -> Java Application`. In the console, you may see some warnings regarding a logger not being set up, ignore this
 
 7. To test your application is work open Firefox and navigate to `http://localhost:8000/todos`. You should see a JSON response with an empty array.
 
@@ -59,7 +63,7 @@ In order to test the YATL application, we are going to need to install three tes
 - mockito - Mockito for mocking objects in unit tests
 - rest-assured - Testing and validating our APIs
 
-1. See if you can find the above dependencies on the Maven Repository. When you have found them, add them to the dependencies section of the `pom.xml` file. You should install the latests versions of the dependencies. At the time of writing, these are:
+1. See if you can find the above dependencies on the [Maven Repository](https://mvnrepository.com/). When you have found them, add them to the dependencies section of the `pom.xml` file. You should install the latests versions of the dependencies. At the time of writing, these are:
 
    - junit: 5.10.2
    - mockito-core: 5.11.0
@@ -83,9 +87,7 @@ When done, your `src/test/java` directory should look like this:
 
 ![Test Directory](./assets/packages.png)
 
-2. Eclipse has a quirk where it hides empty packages. The best way to avoid this is to click on the three dots in the top right of the package explorer and select `Filters and Customization`. Then uncheck `Empty Packages` and click `OK`. Or, perhaps easier, click on package presentation and select `Hierarchical`.
-
-![Hierarchical](./assets/hrv.png)
+2. Eclipse sometimes hides empty packages. The best way to avoid this is to click on the three dots in the top right of the package explorer and select `Filters and Customization`. Then uncheck `Empty Packages` and click `OK`.
 
 ## Exercise 2: Testing the YATL Application
 
@@ -93,63 +95,61 @@ We are now ready to start writing some tests for our application. In this exerci
 
 ### Exercise 2.1: Testing the `Todo` Model
 
-Let's consider how we might test `src/main/java/com/yatl/model/Todo.java`. This class is simply a POJO (Plain Old Java Object) that represents a TODO in our application. Some people make the argument that we don't need to test POJOs (I tend to agree with this); however, let's take the purist approach and write a test for it anyway. Since we are isolating a single class, this can be considered a unit test.
+Let's consider how we might test `src/main/java/com/yatl/model/Todo.java`. This class is simply a POJO (Plain Old Java Object) that represents a TODO in our application. Some people make the argument that we don't need to test POJOs (I tend to agree with this); however, let's take the purist approach and write a test for it anyway. Since we are isolating a single object, this can be considered a unit test.
 
 1. Create a new class called `TodoTest` in the `com.yatl.model` test package. Add the following skeleton code to the class:
 
 ```java
  package com.yatl.model;
 
- import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
- import org.junit.jupiter.api.Test;
+public class TodoTest {
 
- public class TodoTest {
+	private Todo todo;
 
+	// this method is called before each test
+	// giving us a fresh todo object to work with
+	@BeforeEach
+	public void setUp() {
+		// Create a new todo object
+	}
 
- private Todo movie;
+	@Test
+	public void testTodoCreated() {
+		// Use the getters to assert the todo object was created with the expected values
+		// test each of the getters return the values in the todo object created in the
+		// setUp method
+	}
 
-
- // this method is called before each test
- // giving us a fresh todo object to work with
- @BeforeEach
- public void setUp() {
- 	// Create a new todo object
- }
-
-
- @Test
- public void testTodoCreated() {
- 	// Use the getter to assert the todo object was created with the expected values
-    // test each of the getters return the values in the todo object created in the setUp method
- }
-
-
- @Test
- public void testTodoSetters() {
- 	// Use the setter to update the todo object and then use the getter to assert the todo object was updated with the expected values
- }
- }
+	@Test
+	public void testTodoSetters() {
+		// Use the setter to update the todo object and then use the getter to assert
+		// the todo object was updated with the expected values
+	}
+}
 ```
 
 2. Complete the above test class, and then run the tests. To run the tests, right click on the `TodoTest` class and select `Run As -> JUnit Test`. You should see the tests pass.
 
-[If you got stuck, check your `TodoTest` class against the solutions](https://gitlab.surrey.ac.uk/com_1028_labs/lab-6/-/blob/exercise-2-1-solutions/src/test/java/com/yatl/model/TodoTest.java?ref_type=heads)
+[If you got stuck, check your `TodoTest` class against the solutions](https://gitlab.surrey.ac.uk/com_1028_labs/lab-6/-/blob/exercise-2-1-solution/src/test/java/com/yatl/model/TodoTest.java?ref_type=heads)
 
-### Exercise 2.2: Testing the DAO Test Class with an In-Memory Database
+### Exercise 2.2: Testing the TodoDao with an in-memory database
 
 Let's consider how we might test `src/main/java/com/yatl/dao/TodoDao.java`. This class is responsible for interacting with the database. As such, it becomes interesting to test. We have two options here:
 
-1. We could test the class using and in-memory database. This would test the class in isolation. Technically, this is a still a unit test.
+1. We could test the class using and in-memory database.
 2. We could mock the database.
 
 In this case, I prefer the first option. Where possible, I would rather use a real database to test. Mocking can be tricky, especially when we are testing SQL statements. Moreover, If we were to mock our database, all we could really test is methods are called with the correct SQL statements. We wouldn't be able to test the SQL statements return the correct data.
 
-1. The first thing we need to do is create a new database for our tests. Create a `TestSeeder` class in the `com.yatl.util` package (ensure it's in your test folder). [Next copy and past the code from from my solution into your `Seeder` class.](https://gitlab.surrey.ac.uk/com_1028_labs/lab-6/-/blob/exercise-2-2-solutions/src/test/java/com/yatl/util/TestSeeder.java?ref_type=heads)
+1. The first thing we need to do is create a new database for our tests. Create a `TestSeeder` class in the `com.yatl.util` package (ensure it's in your test folder). [Next, copy and past the code from from my solution into your `Seeder` class.](https://gitlab.surrey.ac.uk/com_1028_labs/lab-6/-/blob/exercise-2-2-solutions/src/test/java/com/yatl/util/TestSeeder.java?ref_type=heads)
 
 You should notice the test Seeder class is similar to the Seeder class in the `src/main/java/com/yatl/util` package. The only major difference is we are returning the connection. We do this, as the database will be created in memory and we can't access it via a path. As such, we need to be able to pass the connection around.
 
-1. The next thing we need to do is update `src/main/java/com/yatl/util/Database.java` to allow us to pass a connection to the Database object. This is simple, we just need to overload the constructor and getInstance methods. We can do this by adding the following code to the `Database` class:
+1. The next thing we need to do is update `src/main/java/com/yatl/util/Database.java` to allow us to pass a connection to the Database object. This is simple, we just need to overload the constructor and `getInstance` methods. We can do this by adding the following code to the `Database` class:
 
 ```java
 
@@ -157,35 +157,40 @@ You should notice the test Seeder class is similar to the Seeder class in the `s
    	this.connection = connection;
    }
 
-   public static Database getInstance(Connection conn) {
-   	return new Database(conn);
-   }
+  public static Database getInstance(Connection conn) {
+		instance = new Database(conn);
+
+		return instance;
+}
+
 ```
 
 We are now ready to test the `TodoDao` class.
 
-3. In `src/test/java/com/yatl/dao` create a class called `TodoDaoTest`.
+2. In `src/test/java/com/yatl/dao` create a class called `TodoDaoTest`.
 
-4. The first thing you need to do is create a `@BeforeEach` method that will create a new database and seed it with some data. You can do this by adding the following code to the `TodoDaoTest` class:
+3. The first thing you need to do is create a `@BeforeEach` method that will run the seeder for each test. You can do this by adding the following code to the `TodoDaoTest` class:
 
 ```java
 
-   private TodoDao todoDAO;
+   	TodoDao todoDAO;
+	@BeforeEach
+	public void setUp() {
+		String url = "jdbc:sqlite::memory:";
+		TestSeeder seeder = new TestSeeder(url);
+		seeder.createTables();
+		Database.getInstance(seeder.getConnection());
+		todoDAO = new TodoDao();
 
-   @BeforeEach
-   public void setUp() {
-   	var url = "jdbc:sqlite::memory:";
-   	Seeder seeder = new Seeder(url);
-   	seeder.createTables();
-   	Database.getInstance(seeder.getConnection());
-   	todoDAO = new todoDAO();
+	}
 
-   }
 ```
+
+> > Ensure you add the correct imports to the top of the class. You can do this by pressing `Ctrl + Shift + O` in Eclipse.
 
 Above, we are using the test seeder to create a new database in memory. We then pass the connection to the `Database` class. As the Database class is a singleton, the entire application will use our in-memory database. The final thing we do is create a new `TodoDao` object, this is what we will be testing.
 
-5. See if you can write the following tests methods:
+4. See if you can write the following tests methods:
 
 - `testGetAllTodos` - This method should test the `getAllTodos` method. You should assert that the list of todos returned is the correct length (4). Don't test the values of each todo, this is overkill. Later we will run integration tests to test the values of the todos.
 
@@ -220,7 +225,7 @@ Furthermore, you'll notice we pass a `TodoDao` object to the `TodoController` cl
 
 1. Create a new class called `TodoControllerTest` in the `com.yatl.controller` test package.
 
-Let's, first, consider how we might test the `getAllTodos` method. This method is responsible for returning all the todos. It has the following requirements:
+Let's, first, consider how we might test the `getAllTodos` method on the TodoController. This method is responsible for returning all the todos. It has the following requirements:
 
 - If the status is null, the `getAll` method on the DAO is called.
 - If the status is "completed", the `getByStatus` method on the Dao is called with the parameter `true`.
@@ -229,18 +234,22 @@ Let's, first, consider how we might test the `getAllTodos` method. This method i
 
 Let's test the first three points.
 
-1. Set up your mocks before each test. You can do this by adding the following code to the `TodoControllerTest` class:
+2. Set up your mocks before each test. You can do this by adding the following code to the `TodoControllerTest` class:
 
 ```java
 package com.yatl.controller;
 import static org.mockito.Mockito.mock;
+
+import org.junit.jupiter.api.BeforeEach;
+
 import com.yatl.dao.TodoDao;
+
 import io.javalin.http.Context;
 
 class TodoControllerTest {
 
-	private Context ctx;
-	private  TodoDao todoDao;
+   private Context ctx;
+   private  TodoDao todoDao;
    private  TodoController todoController;
 
    @BeforeEach
@@ -253,7 +262,7 @@ class TodoControllerTest {
 }
 ```
 
-2. Now, create your test:
+3. Now, create your test:
 
 ```java
 @Test
@@ -268,6 +277,8 @@ class TodoControllerTest {
 	}
 ```
 
+> > Ensure you add the correct imports to the top of the class. You can do this by pressing `Ctrl + Shift + O` in Eclipse.
+
 Above, we are testing when the `getAllMethod` is called, the default behavior it to call the `getAll` method on the `TodoDao` object. Run the test.
 
 **ALERT:** Notice how our test failed with the following message:
@@ -280,7 +291,7 @@ But was 2 times:
 
 We are calling getAll todos in error at the start of the method. We should change this line to `List<Todo> todos = null`. When you have done this, run the test again. It should pass. This was actually a mistake I made; however, I only spotted it when I ran the test.
 
-Let's now consider how we can test the second two points, get by completed and active. To achieve this, we need to stub the return value of the `queryParam` method. We can do this using this technique: `when(ctx.queryParam("status")).thenReturn("completed");`
+Let's now consider how we can test the second two points, get by completed and active todos. To achieve this, we need to stub the return value of the `queryParam` method. We can do this using this technique: `when(ctx.queryParam("status")).thenReturn("completed");`
 
 3. Add the following test to the `TodoControllerTest` class:
 
@@ -303,13 +314,15 @@ Let's now consider how we can test the second two points, get by completed and a
 
 ```
 
+> > Ensure you add the correct imports to the top of the class. You can do this by pressing `Ctrl + Shift + O` in Eclipse.
+
 Above, we are testing that when the status is "completed" the `getByStatus` method is called with the parameter `true`. When the status is "active" the `getByStatus` method is called with the parameter `false`.
 
-4. Complete this task by adding the following tests:
+4. Now it's your turn! Complete this task by adding the following tests:
 
-- `public void testThrows500WhenGetAllDatabaseError()` - this tests the final point, if an exception is thrown, the status is set to 500 and the result is set to "Internal server error". You can stub the `getAll` method to throw an exception like this: `when(todoDao.getAll()).thenThrow(new SQLException());`
+- `public void testThrows500WhenGetAllDatabaseError()` - this tests the final point, if an exception is thrown, the status is set to 500. You can stub the `getAll` method to throw an exception like this: `when(todoDao.getAll()).thenThrow(new SQLException());` You can then check the status code like this: `verify(ctx).status(500);`.
 
-- `public void testGetTodoById()` - to create this test stub the value returned from the path param method. You can do this like this: `when(ctx.pathParam("id")).thenReturn("1");`.
+- `public void testGetTodoById()` - to create this test stub the value returned from the path param method. You can do this like this: `when(ctx.pathParam("id")).thenReturn("1");`. You should check that the `getTodo` method is called with the parameter 1.
 
 - `public void testThrows500WhenGetByIdDatabaseError()` - similar to the exception test above.
 
@@ -319,13 +332,13 @@ Above, we are testing that when the status is "completed" the `getByStatus` meth
 
 ### Exercise 2.4: Pulling everything together with integration tests
 
-We are no ready to pull everything together with integrations tests. These could also be called system tests. We are going to test the entire application, from the controller to the database. We will use the `RestAssured` library to do this.
+We are now ready to pull everything together with integrations tests. These could also be called system tests. We are going to test the entire application, from the controller to the database. We will use the `RestAssured` library to do this.
 
 As integration tests cover the entire application, we are going to create them all in one file that lives in the `com.yatl` test package.
 
-1. Create a new class called `IntegrationTests` in the `com.yatl` package.
+1. Create a new class called `IntegrationTests` in the `com.yatl` test package.
 
-The first thing we need to do is create a test version of our application and seed our in-memory database.
+The first thing we need to do is create a test version of our application and seed our in-memory database, just like we did when testing the DAO.
 
 2. At the top of the class, add the following code:
 
@@ -333,6 +346,13 @@ The first thing we need to do is create a test version of our application and se
 
 package com.yatl;
 
+// rest assured imports; we will use these to test our API
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItems;
+
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 import com.yatl.util.Database;
@@ -359,10 +379,11 @@ class IntegrationTests {
 		app = AppConfig.startServer(port);
 	}
 
-	@AfterAll
+	@AfterEach
 	public void tearDown() {
 		app.stop();
 	}
+}
 ```
 
 Above, we are creating a new `TestSeeder` object and creating a new database in-memory. We then pass the connection to the `Database` class. We then start the server on port 6000. We are using the `AppConfig` class to start the server. This is a class that lives in the `com.yatl` package of our application.
@@ -373,7 +394,7 @@ We can now use the `RestAssured` library to test our API. This library allows us
 
 @Test
    public void testGetAllTodos() {
-      given().when().get(baseUrl + "/todos").then().statusCode(200);
+      given().when().get(baseUrl + "/todos").then().assertThat().statusCode(200);
    }
 
 ```
@@ -397,7 +418,7 @@ public void testGetAllTodos() {
 
 The above code tests if the expected todos' id and titles are returned in a JSON list - pretty awesome, and close to how a real client application would interact with the API. If the response is not as expected, the test will fail.
 
-We can also test we can retrieve a single todo:
+We can also test if we can retrieve a single todo:
 
 ```java
 
@@ -431,7 +452,7 @@ Notice how we are using the `equalTo` method to test the values of the movie, th
 - When I send a GET request to /todos?status=active, I should receive a list of active todos.
 - When I send a request with an invalid id, I should receive a 404 status code.
 
-To get the above tests to work, you'll need to add the following imports to the top of the `IntegrationTests` class:
+To get the above tests to work, you'll need to ensure the following imports are at the top of the `IntegrationTests` class:
 
 ```java
 import static io.restassured.RestAssured.given;

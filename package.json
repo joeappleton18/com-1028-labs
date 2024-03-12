@@ -7,9 +7,9 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "vuepress dev docs",
-    "build": "vuepress --openssl-legacy-provider build docs",
-    "deploy": "vuepress build && git add -A && git commit -m 'bot commit' && git push origin master --force"
+    "start": "vuepress dev .",
+    "build": "vuepress build .",
+    "deploy": "  export NODE_OPTIONS=--openssl-legacy-provider && vuepress build && git add -A && git commit -m 'bot commit' && git push origin master --force"
   },
   "dependencies": {
     "vuepress": "^1.5.3"
