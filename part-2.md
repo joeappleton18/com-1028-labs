@@ -289,7 +289,7 @@ Wanted 1 time:
 But was 2 times:
 ```
 
-We are calling getAll todos in error at the start of the method. We should change this line to `List<Todo> todos = null`. When you have done this, run the test again. It should pass. This was actually a mistake I made; however, I only spotted it when I ran the test.
+We are calling getAll todos in error at the start of the controller, `getAllTodos`, method. We should change this line to `List<Todo> todos = null`. When you have done this, run the test again. It should pass. This was actually a mistake I made; however, I only spotted it when I ran the test.
 
 Let's now consider how we can test the second two points, get by completed and active todos. To achieve this, we need to stub the return value of the `queryParam` method. We can do this using this technique: `when(ctx.queryParam("status")).thenReturn("completed");`
 
