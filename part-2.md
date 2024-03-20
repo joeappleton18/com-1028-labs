@@ -16,6 +16,8 @@ In this section, you will grab the starter code and install some dependencies to
 
 ### Exercise 1.1: Cloning the Repository
 
+Note: The starting repository is the solution to the previous lab. If you have not completed the previous lab, and are happy with it, you don't need to clone this repository. You can use your own code.
+
 1. Open a terminal window.
 
 2. Navigate to the directory where you want the project to be located.
